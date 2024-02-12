@@ -1,0 +1,7 @@
+* rsync
+~rsync -avz src dest~
+Copy files from src to dest in archive mode, verbosely, and compressed.
+
+/One may expect this whole sentence to be italicized, but the
+following ~user/?variable contains =/= character, which effectively stops emphasis there./
+

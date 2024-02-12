@@ -1,0 +1,3 @@
+* rsync
+~rsync -avz src dest~
+Copy files from src to dest in archive mode, verbosely, and compressed.
