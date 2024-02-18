@@ -1,6 +1,8 @@
 ;; following along with Geoffrey Lessel on YouTube
 ;; Need to factor out refcard directory as a variable with default
 
+(provide 'am-util)
+
 (defun refcard-display-card (filename)
   "Display user created reference cards"
   (interactive
@@ -18,3 +20,14 @@
     (pop-to-buffer buffer-name '((display-buffer-at-bottom)
 				 (inhibit-same-window . t)
 				 (window-height . fit-window-to-buffer)))))
+
+(defun refcard-new-card ()
+  "Create a new refcard file"
+  (message (word-at-point)))
+
+;; For org-capture template
+(defun end-of-week ()
+  "Return the date of the end of the current week (Sunday)"
+  (format-time-string "%F %a"
+		      (time-add (current-time)
+				(seconds-to-time (* (- 7 (nth 6 (decode-time))) 86400)))))

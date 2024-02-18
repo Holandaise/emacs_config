@@ -24,19 +24,23 @@
  "wl" '(evil-window-right :wk "Window Right")
  "ww" '(evil-window-prev :wk "Previous Window"))
 
-
 (leader-key-def
  :keymaps 'normal
  "oa" '(org-agenda :wk "Org-Agenda")
  "oc" '(org-capture :wk "Org Capture")
  "ot" '((lambda () (interactive) (find-file "~/org/todo.org")) :wk "Open TODOs")
- "od" '(dired :wk "Open Dired"))
+ "od" '(dired :wk "Open Dired")
+ "or" '(refcard-display-card :wk "Open refcard"))
 
 (leader-key-def
   :keymaps 'normal
   "." '(find-file :wk "Find File")
-  "fc" '((lambda () (interactive) (find-file "~/.emacs.d/init.el")) :wk "Edit Emacs Config")
-  "tt" '(eshell :wk "Open Terminal"))
+  "fc" '((lambda () (interactive) (find-file "~/.emacs.d/init.el")) :wk "Edit Emacs Config"))
+
+(leader-key-def
+  :keymaps 'normal
+  "te" '(eshell :wk "eshell terminal")
+  "tv" '(vterm-other-window :wk "vterm"))
 
 (leader-key-def
   :keymaps 'normal

@@ -1,9 +1,11 @@
 ;; Global variables
-(setq gfont-height 130
-      org-directory "~/org"
-      org-agenda-files '("~/org"))
+(setq gfont-height 160)
+(setq org-directory "~/org")
+(setq org-agenda-files '("~/org"))
 (setq tab-width 4)
+(setq scroll-margin 8)
 
+;; config modules
 (add-to-list 'load-path
  (directory-file-name (concat (getenv "HOME") "/.emacs.d/config")))
 
@@ -29,16 +31,12 @@
 (evil-collection-init)
 
 ;; set theme
-(unless (package-installed-p 'doom-themes)
-  (package-install 'doom-themes))
-(require 'doom-themes)
-;; Modus theme customization
-(setq modus-themes-region '(bg-only))
-(setq modus-themes-fringes 'intense)
-(load-theme 'modus-vivendi)
+(unless (package-installed-p 'ef-themes)
+  (package-install 'ef-themes))
+(load-theme 'ef-night t)
 
 ;; set font
-(set-face-attribute 'default nil :font "Fira Code Retina" :height gfont-height)
+(set-face-attribute 'default nil :font "Terminus" :height 160)
 (set-face-attribute 'fixed-pitch nil :font "Droid Sans Mono" :height gfont-height)
 
 ;; UI
@@ -48,8 +46,9 @@
 (set-fringe-mode 10)
 (menu-bar-mode -1)
 (column-number-mode)
-(global-display-line-numbers-mode t)
 (global-hl-line-mode 1) 
+
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
 
 ;; No backup files DAMMIT!
 (setq backup-directory-alist
@@ -69,6 +68,7 @@
 (unless (package-installed-p 'marginalia)
   (package-install 'marginalia))
 (require 'marginalia)
+(marginalia-mode 1)
 
 ;; which-key
 (unless (package-installed-p 'which-key)
@@ -94,12 +94,13 @@
 (add-hook 'c-mode-hook 'lsp)
 (add-hook 'c++-mode-hook 'lsp)
 
-;; company-mode for completions
+;; corfu-mode for completions
 (unless (package-installed-p 'corfu)
   (package-install 'corfu))
 (setq corfu-cycle t)
 (setq corfu-auto t)
-(corfu-mode)
+(setq corfu-echo-documentation 0.25)
+(corfu-mode t)
 
 ;; Language Support
 (unless (package-installed-p 'zig-mode)
@@ -129,25 +130,5 @@
 
 ;; keybinds
 (require 'am-keybinds)
-
-;; For org-capture template
-(defun end-of-week ()
-  "Return the date of the end of the current week (Sunday)"
-  (format-time-string "%F %a"
-		      (time-add (current-time)
-				(seconds-to-time (* (- 7 (nth 6 (decode-time))) 86400)))))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("631c52620e2953e744f2b56d102eae503017047fb43d65ce028e88ef5846ea3b" "9d29a302302cce971d988eb51bd17c1d2be6cd68305710446f658958c0640f68" "016f665c0dd5f76f8404124482a0b13a573d17e92ff4eb36a66b409f4d1da410" "944d52450c57b7cbba08f9b3d08095eb7a5541b0ecfb3a0a9ecd4a18f3c28948" "2f8eadc12bf60b581674a41ddc319a40ed373dd4a7c577933acaff15d2bf7cc6" "5586a5db9dadef93b6b6e72720205a4fa92fd60e4ccfd3a5fa389782eab2371b" "6945dadc749ac5cbd47012cad836f92aea9ebec9f504d32fe89a956260773ca4" "1aa4243143f6c9f2a51ff173221f4fd23a1719f4194df6cef8878e75d349613d" "bf948e3f55a8cd1f420373410911d0a50be5a04a8886cabe8d8e471ad8fdba8e" "2078837f21ac3b0cc84167306fa1058e3199bbd12b6d5b56e3777a4125ff6851" "1cae4424345f7fe5225724301ef1a793e610ae5a4e23c023076dc334a9eb940a" "b54376ec363568656d54578d28b95382854f62b74c32077821fdfd604268616a" "3fe1ebb870cc8a28e69763dde7b08c0f6b7e71cc310ffc3394622e5df6e4f0da" "a9abd706a4183711ffcca0d6da3808ec0f59be0e8336868669dc3b10381afb6f" "8d8207a39e18e2cc95ebddf62f841442d36fcba01a2a9451773d4ed30b632443" "b99e334a4019a2caa71e1d6445fc346c6f074a05fcbb989800ecbe54474ae1b0" "aec7b55f2a13307a55517fdf08438863d694550565dee23181d2ebd973ebd6b8" "8b6506330d63e7bc5fb940e7c177a010842ecdda6e1d1941ac5a81b13191020e" "00cec71d41047ebabeb310a325c365d5bc4b7fab0a681a2a108d32fb161b4006" "1a1ac598737d0fcdc4dfab3af3d6f46ab2d5048b8e72bc22f50271fd6d393a00" "56044c5a9cc45b6ec45c0eb28df100d3f0a576f18eef33ff8ff5d32bac2d9700" "683b3fe1689da78a4e64d3ddfce90f2c19eb2d8ab1bab1738a63d8263119c3f4" "02f57ef0a20b7f61adce51445b68b2a7e832648ce2e7efb19d217b6454c1b644" "49acd691c89118c0768c4fb9a333af33e3d2dca48e6f79787478757071d64e68" "0c83e0b50946e39e237769ad368a08f2cd1c854ccbcd1a01d39fdce4d6f86478" "7a424478cb77a96af2c0f50cfb4e2a88647b3ccca225f8c650ed45b7f50d9525" "f366d4bc6d14dcac2963d45df51956b2409a15b770ec2f6d730e73ce0ca5c8a7" default))
- '(package-selected-packages
-   '(projectile marginalia consult evil-collection doom-themes corfu-mode rust-mode zig-mode lsp-mode which-key vertico)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(mode-line ((t (:background "#1d2026" :foreground "#bbc2cf" :box nil :height 1.1)))))
+;; refcard utils
+(require 'am-util)
