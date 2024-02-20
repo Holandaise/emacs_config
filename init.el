@@ -5,16 +5,16 @@
 (setq tab-width 4)
 (setq scroll-margin 8)
 
-;; config modules
-(add-to-list 'load-path
- (directory-file-name (concat (getenv "HOME") "/.emacs.d/config")))
-
 ;; package.el
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 
 (package-initialize)
 (package-refresh-contents)
+
+;; config modules
+(add-to-list 'load-path
+ (directory-file-name (concat (getenv "HOME") "/.emacs.d/config")))
 
 ;; Get Evil
 (unless (package-installed-p 'evil)
@@ -33,7 +33,11 @@
 ;; set theme
 (unless (package-installed-p 'ef-themes)
   (package-install 'ef-themes))
-(load-theme 'ef-night t)
+(let ((daytime-theme 'ef-arbutus)
+      (nighttime-theme 'ef-dark))
+  (if (> (decoded-time-hour (decode-time)) 19)
+      (load-theme nighttime-theme t)
+    (load-theme daytime-theme t)))
 
 ;; set font
 (set-face-attribute 'default nil :font "Terminus" :height 160)
@@ -95,12 +99,10 @@
 (add-hook 'c++-mode-hook 'lsp)
 
 ;; corfu-mode for completions
-(unless (package-installed-p 'corfu)
-  (package-install 'corfu))
-(setq corfu-cycle t)
-(setq corfu-auto t)
-(setq corfu-echo-documentation 0.25)
-(corfu-mode t)
+(unless (package-installed-p 'company)
+  (package-install 'company))
+(unless (package-installed-p 'consult)
+  (package-install 'consult))
 
 ;; Language Support
 (unless (package-installed-p 'zig-mode)
@@ -110,9 +112,9 @@
   (package-install 'rust-mode))
 
 ;; Nicer looking org-mode
-(unless (package-installed-p 'org-bullets)
-  (package-install 'org-bullets))
-(add-hook 'org-mode-hook 'org-bullets-mode)
+;;(unless (package-installed-p 'org-bullets)
+;;  (package-install 'org-bullets))
+;;(add-hook 'org-mode-hook 'org-bullets-mode)
 
 (setq org-todo-keywords '((sequence "TODO" "WAIT" "DONE")))
 
@@ -132,3 +134,20 @@
 (require 'am-keybinds)
 ;; refcard utils
 (require 'am-util)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("c2c63381042e2e4686166d5d59a09118017b39003e58732b31737deeed454f1c" "2777f300b438d2d061560c6a1afac9723e7f840413b12a471055428269ee17dd" "2ca3da7d36b0d326f984530a07be54b272b5c313b1361989acf747d8b5616162" default))
+ '(org-agenda-files
+   '("/home/adam/zet/week-07.org" "/home/adam/org/elisp.org" "/home/adam/org/journal.org" "/home/adam/org/notes.org" "/home/adam/org/todo.org"))
+ '(package-selected-packages
+   '(rainbow-delimiters consult company general org-bullets rust-mode zig-mode corfu lsp-mode magit projectile which-key marginalia vertico ef-themes evil-collection evil)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
