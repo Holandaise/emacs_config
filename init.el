@@ -16,7 +16,7 @@
 (add-to-list 'load-path
  (directory-file-name (concat (getenv "HOME") "/.emacs.d/config")))
 
-;; Get Evil
+;; Get Evil for vim keybindings
 (unless (package-installed-p 'evil)
   (package-install 'evil))
 (unless (package-installed-p 'evil-collection)
@@ -34,10 +34,14 @@
 (unless (package-installed-p 'ef-themes)
   (package-install 'ef-themes))
 (let ((daytime-theme 'ef-arbutus)
-      (nighttime-theme 'ef-dark))
+      (nighttime-theme 'ef-night))
   (if (> (decoded-time-hour (decode-time)) 19)
       (load-theme nighttime-theme t)
     (load-theme daytime-theme t)))
+
+;; Terminal Mode
+(unless (package-installed-p 'vterm)
+  (package-install 'vterm))
 
 ;; set font
 (set-face-attribute 'default nil :font "Terminus" :height 160)
@@ -98,11 +102,14 @@
 (add-hook 'c-mode-hook 'lsp)
 (add-hook 'c++-mode-hook 'lsp)
 
-;; corfu-mode for completions
+;; company-mode for completions
 (unless (package-installed-p 'company)
   (package-install 'company))
 (unless (package-installed-p 'consult)
   (package-install 'consult))
+
+(add-hook 'prog-mode-hook 'company-mode)
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
 ;; Language Support
 (unless (package-installed-p 'zig-mode)
@@ -112,9 +119,9 @@
   (package-install 'rust-mode))
 
 ;; Nicer looking org-mode
-;;(unless (package-installed-p 'org-bullets)
-;;  (package-install 'org-bullets))
-;;(add-hook 'org-mode-hook 'org-bullets-mode)
+(unless (package-installed-p 'org-bullets)
+  (package-install 'org-bullets))
+(add-hook 'org-mode-hook 'org-bullets-mode)
 
 (setq org-todo-keywords '((sequence "TODO" "WAIT" "DONE")))
 
@@ -123,6 +130,8 @@
 	 "* TODO %?\n")
 	("j" "Journal" entry (file+datetree "~/org/journal.org")
 	 "* %?\nEntered on %U\n %i\n %a")
+	("n" "Note" entry (file+headline "~/org/notes.org" "Inbox")
+	 "* %U %?")
 	("b" "To buy" item (file+headline "~/org/todo.org" "Shopping")
 	 "- [ ] %?\n")
 	("h" "Habit" entry (file+headline "~/org/todo.org" "Daily")
@@ -140,11 +149,11 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("c2c63381042e2e4686166d5d59a09118017b39003e58732b31737deeed454f1c" "2777f300b438d2d061560c6a1afac9723e7f840413b12a471055428269ee17dd" "2ca3da7d36b0d326f984530a07be54b272b5c313b1361989acf747d8b5616162" default))
+   '("79a8c85692a05a0ce0502168bb0e00d25f021a75d8b0136b46978bddf25e3b72" "c2c63381042e2e4686166d5d59a09118017b39003e58732b31737deeed454f1c" "2777f300b438d2d061560c6a1afac9723e7f840413b12a471055428269ee17dd" "2ca3da7d36b0d326f984530a07be54b272b5c313b1361989acf747d8b5616162" default))
  '(org-agenda-files
    '("/home/adam/zet/week-07.org" "/home/adam/org/elisp.org" "/home/adam/org/journal.org" "/home/adam/org/notes.org" "/home/adam/org/todo.org"))
  '(package-selected-packages
-   '(rainbow-delimiters consult company general org-bullets rust-mode zig-mode corfu lsp-mode magit projectile which-key marginalia vertico ef-themes evil-collection evil)))
+   '(vterm rainbow-delimiters consult company general rust-mode zig-mode lsp-mode magit projectile which-key marginalia vertico ef-themes evil-collection evil)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

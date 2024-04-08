@@ -10,7 +10,7 @@
 (leader-key-def
   :keymaps 'normal
   "b" '(:ignore t :wk "Buffer")
-  "bb" '(switch-to-buffer :wk "Select Buffer")
+  "bb" '(consult-buffer :wk "Select Buffer")
   "bk" '(kill-this-buffer :wk "Buffer Kill")
   "bn" '(next-buffer :wk "Buffer Next")
   "bp" '(previous-buffer :wk "Buffer Prev")
