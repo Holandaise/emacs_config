@@ -1,5 +1,4 @@
 ;; Global variables
-(setq gfont-height 160)
 (setq org-directory "~/org")
 (setq org-agenda-files '("~/org"))
 (setq tab-width 4)
@@ -44,8 +43,7 @@
   (package-install 'vterm))
 
 ;; set font
-(set-face-attribute 'default nil :font "Terminus" :height 160)
-(set-face-attribute 'fixed-pitch nil :font "Droid Sans Mono" :height gfont-height)
+(set-frame-font "Terminus 14")
 
 ;; UI
 (scroll-bar-mode -1)
@@ -60,8 +58,7 @@
 
 ;; No backup files DAMMIT!
 (setq backup-directory-alist
-      '((".*" . ,temporary-file-directory)))
-
+     '((".*" . ,temporary-file-directory)))
 (setq make-backup-files nil)
 (setq backup-inhibited t)
 

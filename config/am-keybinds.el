@@ -46,3 +46,8 @@
   :keymaps 'normal
   "hf" '(describe-function :wk "Help Function")
   "hv" '(describe-variable :wk "Help Variable"))
+
+(leader-key-def
+  :keymaps 'normal
+  "gg" '(magit-status :wk "Magit Status")
+  "gs" '(magit-stage-file :wk "Stage Current File"))

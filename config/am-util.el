@@ -37,7 +37,7 @@
 (add-to-list 'org-agenda-files zettel-directory)
 
 (defun zettel ()
-  "open this week's zet if not exists"
+  "open this week's zet; create if not exists"
   (interactive)
   (unless (file-exists-p zettel-directory)
     (make-directory zettel-directory))
