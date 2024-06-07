@@ -20,9 +20,10 @@
  :keymaps 'normal
  "w" '(:ignore t :wk "Window")
  "wk" '(evil-window-delete :wk "Window Kill")
- "wh" '(evil-window-left :wk "Window Left")
+ "wo" '(delete-other-windows :wk "Kill other window")
  "wl" '(evil-window-right :wk "Window Right")
- "ww" '(evil-window-prev :wk "Previous Window"))
+ "wp" '(evil-window-prev :wk "Previous Window")
+ "wn" '(evil-window-next :wk "Next Window"))
 
 (leader-key-def
  :keymaps 'normal
