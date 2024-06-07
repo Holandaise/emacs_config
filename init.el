@@ -106,7 +106,7 @@
   (package-install 'consult))
 
 (add-hook 'prog-mode-hook 'company-mode)
-(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+;;(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
 ;; Language Support
 (unless (package-installed-p 'zig-mode)
